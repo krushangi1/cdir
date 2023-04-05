@@ -4,9 +4,13 @@ import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
+
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -18,38 +22,49 @@ import jakarta.persistence.Table;
 public class Directory {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "directory_id")
     private int directoryId;
 
-    @Column(name = "Full name")
+    @Column(name = "full_name")
     private String fullName;
 
+    @CreationTimestamp
     @Column(name = "created_at")
     private Timestamp createsAt;
 
+    @UpdateTimestamp
     @Column(name = "updated_at")
     private Timestamp updatedAt;
 
 
     //mapping to contact,email,address
-    @OneToMany(mappedBy = "directory",cascade={CascadeType.ALL})
-    private List<Email> emails;
-    @OneToMany(mappedBy = "directory",cascade={CascadeType.ALL})
-    private List<Contact> contacts;
-    @OneToMany(mappedBy = "directory",cascade={CascadeType.ALL})
-    private List<Address> addresses;
+    @OneToMany(mappedBy = "directory",cascade={CascadeType.ALL},fetch=FetchType.EAGER)
+    private List<Email> emails= new ArrayList < > ();
+    @OneToMany(mappedBy = "directory",cascade={CascadeType.ALL},fetch=FetchType.EAGER)
+    private List<Contact> contacts= new ArrayList < > ();
+    @OneToMany(mappedBy = "directory",cascade={CascadeType.ALL},fetch=FetchType.EAGER)
+    private List<Address> addresses= new ArrayList < > ();
 
     //getter & setters
 
     public Directory() {
     }
-    public Directory(String fullName, Timestamp createsAt, Timestamp updatedAt) {
-        this.fullName = fullName;
-        this.createsAt = createsAt;
-        this.updatedAt = updatedAt;
-    }
-    public String getFullName() {
+    
+    
+    public Directory(String fullName, Timestamp createsAt, Timestamp updatedAt, List<Email> emails,
+			List<Contact> contacts, List<Address> addresses) {
+		super();
+		this.fullName = fullName;
+		this.createsAt = createsAt;
+		this.updatedAt = updatedAt;
+		this.emails = emails;
+		this.contacts = contacts;
+		this.addresses = addresses;
+	}
+
+
+	public String getFullName() {
         return fullName;
     }
     public void setFullName(String fullName) {
@@ -74,38 +89,41 @@ public class Directory {
     public void setDirectoryId(int directoryId) {
         this.directoryId = directoryId;
     }
-    @Override
-    public String toString() {
-        return "Directory{" +
-                "directoryId=" + directoryId +
-                ", fullName='" + fullName + '\'' +
-                ", createsAt=" + createsAt +
-                ", updatedAt=" + updatedAt +
-                '}';
-    }
+   
+
+    
 
     //getter & setter for mapped field
-    public List<Email> getEmails(){
-        return emails;
-    }
-    public List<Contact> getContacts(){
-        return contacts;
-    }
-    public List<Address> getAddresses(){
-        return addresses;
-    }
-    public void setEmails(List<Email> emails){
-        this.emails=emails;
-    }
-    public void setContacts(List<Contact> contacts){
-        this.contacts=contacts;
-    }
-    public void setAddresses(List<Address> addresses){
-        this.addresses=addresses;
-    }
+//    public List<Email> getEmails(){
+//    	
+//        return emails;
+//    }
+//    public List<Contact> getContacts(){
+//        return contacts;
+//    }
+//    public List<Address> getAddresses(){
+//        return addresses;
+//    }
+//    public void setEmails(List<Email> emails){
+//        this.emails=emails;
+//    }
+//    public void setContacts(List<Contact> contacts){
+//        this.contacts=contacts;
+//    }
+//    public void setAddresses(List<Address> addresses){
+//        this.addresses=addresses;
+//    }
 
 
-    //add method for bidirectional relationship
+    @Override
+	public String toString() {
+		return "Directory [directoryId=" + directoryId + ", fullName=" + fullName + ", createsAt=" + createsAt
+				+ ", updatedAt=" + updatedAt + ", emails=" + emails + ", contacts=" + contacts + ", addresses="
+				+ addresses + "]";
+	}
+
+
+	//add method for bidirectional relationship
     public void addEmail(Email tempEmail){
         if(emails==null){
             emails=new ArrayList<>();
@@ -125,7 +143,7 @@ public class Directory {
             contacts=new ArrayList<>();
         }
         contacts.add(tempContact);
-        tempContact.setDirectory(this.directoryId);
+        tempContact.setDirectoryId(this.directoryId);
     }
 
 }

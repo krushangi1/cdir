@@ -10,7 +10,7 @@ public class DirectoryApplication {
 		SpringApplication.run(DirectoryApplication.class, args);
 
 
-		System.out.println("conected");
+		
 	}
 
 

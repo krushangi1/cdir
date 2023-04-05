@@ -15,11 +15,11 @@ import jakarta.persistence.Table;
 public class Contact {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "contact_id")
     private int contactId;
 
-//    @ManyToOne(cascade={CascadeType.PERSIST,CascadeType.DETACH,CascadeType.MERGE})
+ //   @ManyToOne(cascade={CascadeType.PERSIST,CascadeType.DETACH,CascadeType.MERGE})
     @Column(name = "directory_id")
     private int directory;
 
@@ -32,8 +32,8 @@ public class Contact {
     public Contact() {
     }
 
-    public Contact(int directory, int no, String type) {
-        this.directory = directory;
+    public Contact(int directory_id, int no, String type) {
+        this.directory = directory_id;
         this.no = no;
         this.type = type;
     }
@@ -46,12 +46,12 @@ public class Contact {
         this.contactId = contactId;
     }
 
-    public int getDirectory() {
+    public int getDirectoryId() {
         return directory;
     }
 
-    public void setDirectory(int directoryId) {
-        this.directory = directoryId;
+    public void setDirectoryId(int directory_idId) {
+        this.directory = directory_idId;
     }
 
     public int getNo() {
@@ -74,7 +74,7 @@ public class Contact {
     public String toString() {
         return "Contact{" +
                 "contactId=" + contactId +
-                ", directoryId=" + directory +
+                ", directory_id=" + directory +
                 ", no=" + no +
                 ", type='" + type + '\'' +
                 '}';
