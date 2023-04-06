@@ -7,6 +7,11 @@ import java.util.List;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -18,6 +23,9 @@ import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
 @Entity
+@JsonIdentityInfo(
+        generator = ObjectIdGenerators.PropertyGenerator.class,
+        property = "directoryId")
 @Table(name = "directory")
 public class Directory {
 
@@ -40,6 +48,7 @@ public class Directory {
 
     //mapping to contact,email,address
     @OneToMany(mappedBy = "directory",cascade={CascadeType.ALL},fetch=FetchType.EAGER)
+    @JsonManagedReference
     private List<Email> emails= new ArrayList < > ();
     @OneToMany(mappedBy = "directory",cascade={CascadeType.ALL},fetch=FetchType.EAGER)
     private List<Contact> contacts= new ArrayList < > ();
@@ -94,25 +103,25 @@ public class Directory {
     
 
     //getter & setter for mapped field
-//    public List<Email> getEmails(){
-//    	
-//        return emails;
-//    }
-//    public List<Contact> getContacts(){
-//        return contacts;
-//    }
-//    public List<Address> getAddresses(){
-//        return addresses;
-//    }
-//    public void setEmails(List<Email> emails){
-//        this.emails=emails;
-//    }
-//    public void setContacts(List<Contact> contacts){
-//        this.contacts=contacts;
-//    }
-//    public void setAddresses(List<Address> addresses){
-//        this.addresses=addresses;
-//    }
+    public List<Email> getEmails(){
+    	
+        return emails;
+    }
+    public List<Contact> getContacts(){
+        return contacts;
+    }
+    public List<Address> getAddresses(){
+        return addresses;
+    }
+    public void setEmails(List<Email> emails){
+        this.emails=emails;
+    }
+    public void setContacts(List<Contact> contacts){
+        this.contacts=contacts;
+    }
+    public void setAddresses(List<Address> addresses){
+        this.addresses=addresses;
+    }
 
 
     @Override
@@ -124,26 +133,26 @@ public class Directory {
 
 
 	//add method for bidirectional relationship
-    public void addEmail(Email tempEmail){
-        if(emails==null){
-            emails=new ArrayList<>();
-        }
-        emails.add(tempEmail);
-        tempEmail.setDirectory(this.directoryId);
-    }
-    public void addAddress(Address tempAddress){
-        if(addresses==null){
-            addresses=new ArrayList<>();
-        }
-        addresses.add(tempAddress);
-        tempAddress.setDirectory(this.directoryId);
-    }
-    public void addContact(Contact tempContact){
-        if(contacts==null){
-            contacts=new ArrayList<>();
-        }
-        contacts.add(tempContact);
-        tempContact.setDirectoryId(this.directoryId);
-    }
+//    public void addEmail(Email tempEmail){
+//        if(emails==null){
+//            emails=new ArrayList<>();
+//        }
+//        emails.add(tempEmail);
+//        tempEmail.setDirectory(this.directoryId);
+//    }
+//    public void addAddress(Address tempAddress){
+//        if(addresses==null){
+//            addresses=new ArrayList<>();
+//        }
+//        addresses.add(tempAddress);
+//        tempAddress.setDirectory(this.directoryId);
+//    }
+//    public void addContact(Contact tempContact){
+//        if(contacts==null){
+//            contacts=new ArrayList<>();
+//        }
+//        contacts.add(tempContact);
+//        tempContact.setDirectoryId(this.directoryId);
+//    }
 
 }

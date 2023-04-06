@@ -42,6 +42,7 @@ public   class DirectoryServiceImpl implements DirectoryService {
 		else {
             throw new RuntimeException("Did not find the directory with id - " + directoryId);
         }
+		System.out.println(theDirectory);
         return theDirectory;
     }
 	

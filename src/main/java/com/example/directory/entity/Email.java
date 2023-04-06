@@ -1,5 +1,10 @@
 package com.example.directory.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -11,6 +16,9 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 
 @Entity
+@JsonIdentityInfo(
+        generator = ObjectIdGenerators.PropertyGenerator.class,
+        property = "emailId")
 @Table(name = "email")
 public class Email {
 
@@ -19,10 +27,11 @@ public class Email {
     @Column(name = "email_id")
     private int emaiId;
 
-//    @ManyToOne(cascade={CascadeType.PERSIST,CascadeType.DETACH,CascadeType.MERGE})
-    @Column(name = "directory_id")
-    private int directory;
-
+    @ManyToOne
+    @JoinColumn(name = "directory_id")
+    @JsonBackReference
+    private Directory directory;
+    
     @Column(name = "email")
     private String email;
 
@@ -36,7 +45,7 @@ public class Email {
     public Email() {
     }
 
-    public Email(int directoryId, String email, String type) {
+    public Email(Directory directoryId, String email, String type) {
         this.directory = directoryId;
         this.email = email;
         this.type = type;
@@ -46,11 +55,11 @@ public class Email {
         this.emaiId = emaiId;
     }
 
-    public int getDirectory() {
+    public Directory getDirectory() {
         return directory;
     }
 
-    public void setDirectory(int directoryId) {
+    public void setDirectory(Directory directoryId) {
         this.directory = directoryId;
     }
 
