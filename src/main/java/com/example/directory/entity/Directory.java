@@ -23,9 +23,6 @@ import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
 @Entity
-@JsonIdentityInfo(
-        generator = ObjectIdGenerators.PropertyGenerator.class,
-        property = "directoryId")
 @Table(name = "directory")
 public class Directory {
 
@@ -39,7 +36,7 @@ public class Directory {
 
     @CreationTimestamp
     @Column(name = "created_at")
-    private Timestamp createsAt;
+    private Timestamp createdAt;
 
     @UpdateTimestamp
     @Column(name = "updated_at")
@@ -48,10 +45,11 @@ public class Directory {
 
     //mapping to contact,email,address
     @OneToMany(mappedBy = "directory",cascade={CascadeType.ALL},fetch=FetchType.EAGER)
-    @JsonManagedReference
     private List<Email> emails= new ArrayList < > ();
+    
     @OneToMany(mappedBy = "directory",cascade={CascadeType.ALL},fetch=FetchType.EAGER)
     private List<Contact> contacts= new ArrayList < > ();
+    
     @OneToMany(mappedBy = "directory",cascade={CascadeType.ALL},fetch=FetchType.EAGER)
     private List<Address> addresses= new ArrayList < > ();
 
@@ -65,7 +63,7 @@ public class Directory {
 			List<Contact> contacts, List<Address> addresses) {
 		super();
 		this.fullName = fullName;
-		this.createsAt = createsAt;
+		this.createdAt = createsAt;
 		this.updatedAt = updatedAt;
 		this.emails = emails;
 		this.contacts = contacts;
@@ -81,10 +79,10 @@ public class Directory {
     }
     public Timestamp getCreatesAt() {
 
-        return createsAt;
+        return createdAt;
     }
     public void setCreatesAt(Timestamp createsAt) {
-        this.createsAt = createsAt;
+        this.createdAt = createsAt;
     }
     public Timestamp getUpdatedAt() {
         return updatedAt;
@@ -126,7 +124,7 @@ public class Directory {
 
     @Override
 	public String toString() {
-		return "Directory [directoryId=" + directoryId + ", fullName=" + fullName + ", createsAt=" + createsAt
+		return "Directory [directoryId=" + directoryId + ", fullName=" + fullName + ", createsAt=" + createdAt
 				+ ", updatedAt=" + updatedAt + ", emails=" + emails + ", contacts=" + contacts + ", addresses="
 				+ addresses + "]";
 	}

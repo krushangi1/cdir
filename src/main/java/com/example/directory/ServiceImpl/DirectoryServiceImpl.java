@@ -62,7 +62,7 @@ public   class DirectoryServiceImpl implements DirectoryService {
 
     //----------------------------save or delete email by id
     @Override
-    public Directory saveDirectory(Directory tempDirectory){
+    public Directory saveDirectory(Directory tempDirectory) {
          return directoryRepository.save(tempDirectory);
     }
 }

@@ -1,5 +1,7 @@
 package com.example.directory.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -19,12 +21,12 @@ public class Contact {
     @Column(name = "contact_id")
     private int contactId;
 
- //   @ManyToOne(cascade={CascadeType.PERSIST,CascadeType.DETACH,CascadeType.MERGE})
+//    @ManyToOne
     @Column(name = "directory_id")
     private int directory;
 
     @Column(name = "no")
-    private int no;
+    private String no;
 
     @Column(name = "type")
     private String type;
@@ -32,7 +34,7 @@ public class Contact {
     public Contact() {
     }
 
-    public Contact(int directory_id, int no, String type) {
+    public Contact(int directory_id, String no, String type) {
         this.directory = directory_id;
         this.no = no;
         this.type = type;
@@ -54,11 +56,11 @@ public class Contact {
         this.directory = directory_idId;
     }
 
-    public int getNo() {
+    public String getNo() {
         return no;
     }
 
-    public void setNo(int no) {
+    public void setNo(String no) {
         this.no = no;
     }
 

@@ -17,8 +17,9 @@ import jakarta.persistence.Table;
 
 @Entity
 @JsonIdentityInfo(
+		scope = Email.class,
         generator = ObjectIdGenerators.PropertyGenerator.class,
-        property = "emailId")
+        property = "emaiId")
 @Table(name = "email")
 public class Email {
 
@@ -27,10 +28,9 @@ public class Email {
     @Column(name = "email_id")
     private int emaiId;
 
-    @ManyToOne
-    @JoinColumn(name = "directory_id")
-    @JsonBackReference
-    private Directory directory;
+//    @ManyToOne
+    @Column(name = "directory_id")
+    private int directory;
     
     @Column(name = "email")
     private String email;
@@ -45,7 +45,7 @@ public class Email {
     public Email() {
     }
 
-    public Email(Directory directoryId, String email, String type) {
+    public Email(int directoryId, String email, String type) {
         this.directory = directoryId;
         this.email = email;
         this.type = type;
@@ -55,11 +55,11 @@ public class Email {
         this.emaiId = emaiId;
     }
 
-    public Directory getDirectory() {
+    public int getDirectory() {
         return directory;
     }
 
-    public void setDirectory(Directory directoryId) {
+    public void setDirectory(int directoryId) {
         this.directory = directoryId;
     }
 

@@ -43,6 +43,7 @@ public class DirectoryController {
     }
     
     //----------------------------find directory by id
+	@CrossOrigin(origins = "http://localhost:4200")
     @GetMapping("/all/{directoryId}")
     public Directory findById(@PathVariable("directoryId") int directoryId){
     	System.out.println("---");

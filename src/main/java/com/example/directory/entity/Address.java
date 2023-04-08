@@ -1,5 +1,7 @@
 package com.example.directory.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -19,7 +21,7 @@ public class Address {
     @Column(name = "address_id")
     private int addressId;
 
-//    @ManyToOne(cascade={CascadeType.PERSIST,CascadeType.DETACH,CascadeType.MERGE})
+//	@ManyToOne
     @Column(name = "directory_id")
     private int directory;
 
