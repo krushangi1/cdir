@@ -1,6 +1,7 @@
 package com.example.directory.controller;
 
 import java.rmi.ServerException;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,7 +16,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.directory.ServiceImpl.ContactServiceImpl;
+import com.example.directory.dao.ContactRepository;
 import com.example.directory.entity.Contact;
+import com.example.directory.entity.Directory;
 import com.example.directory.entity.Email;
 import com.example.directory.service.ContactService;
 
@@ -26,6 +29,7 @@ import jakarta.servlet.http.HttpServletRequest;
 public class ContactController {
 	
     private ContactService contactServiceImpl;
+//    private ContactRepository contactRepo;
     
     
     public ContactController() {
@@ -35,6 +39,7 @@ public class ContactController {
 	@Autowired
     public ContactController(ContactService contactServiceImpl){
         this.contactServiceImpl=contactServiceImpl;
+        
     }
 	
 	
@@ -82,9 +87,8 @@ public class ContactController {
     //-----------------------------------find by user id
     @GetMapping("all/user/{dirId}")
     @CrossOrigin(origins = "http://localhost:4200")
-    public List<Email> findByUser(@PathVariable("dirId") int directory){
-    	System.out.println("-----------------");
-    	System.out.println(contactServiceImpl.findByUserDirectory(directory));
-    	return contactServiceImpl.findByUserDirectory(directory);
+    public List<Contact> findByUser(@PathVariable("dirId") int directory){
+    	return contactServiceImpl.findContactByUserDirectory(directory);
     }
+   
 }

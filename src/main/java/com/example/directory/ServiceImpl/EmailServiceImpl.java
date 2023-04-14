@@ -1,5 +1,7 @@
 package com.example.directory.ServiceImpl;
 
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
 
@@ -7,6 +9,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.example.directory.dao.EmailRepository;
+import com.example.directory.entity.Address;
+import com.example.directory.entity.Directory;
 import com.example.directory.entity.Email;
 import com.example.directory.service.EmailService;
 
@@ -79,14 +83,14 @@ public  class EmailServiceImpl implements EmailService {
     
     //-----------------------------------------------custom method implementation
     @Override
-    public List<Email> findByUserDirectory(int directory){
+    public List<Email> findEmailByUserDirectory(int directory){
     	String hql = "FROM Email as  e WHERE e.directory=:dirId";
         TypedQuery<Email> query = entityManager.createQuery(hql, Email.class);
         query.setParameter("dirId", directory);
         List<Email> theEmails =query.getResultList();
         return theEmails;
     }
-  
+
 }
 
 	

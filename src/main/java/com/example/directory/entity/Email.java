@@ -1,5 +1,7 @@
 package com.example.directory.entity;
 
+import java.util.List;
+
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
@@ -26,10 +28,11 @@ public class Email {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "email_id")
-    private int emaiId;
+    private int emailId;
 
 //    @ManyToOne
     @Column(name = "directory_id")
+//    @JsonBackReference
     private int directory;
     
     @Column(name = "email")
@@ -39,7 +42,7 @@ public class Email {
     private String type;
 
     public int getEmaiId() {
-        return emaiId;
+        return emailId;
     }
 
     public Email() {
@@ -52,7 +55,7 @@ public class Email {
     }
 
     public void setEmaiId(int emaiId) {
-        this.emaiId = emaiId;
+        this.emailId = emaiId;
     }
 
     public int getDirectory() {
@@ -82,10 +85,11 @@ public class Email {
     @Override
     public String toString() {
         return "Email{" +
-                "emaiId=" + emaiId +
+                "emaild=" + emailId +
                 ", directory=" + directory +
                 ", email='" + email + '\'' +
                 ", type='" + type + '\'' +
                 '}';
     }
+   
 }

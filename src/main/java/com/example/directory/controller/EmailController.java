@@ -1,5 +1,6 @@
 package com.example.directory.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -85,9 +86,7 @@ public class EmailController {
     @CrossOrigin(origins = "http://localhost:4200")
     @GetMapping("/all/user/{dirId}")
     public List<Email> findByUser(@PathVariable("dirId") int directory){
-    	System.out.println("-----------------");
-    	System.out.println(emailService.findByUserDirectory(directory));
-    	return emailService.findByUserDirectory(directory);
+    	return emailService.findEmailByUserDirectory(directory);
     }
-
+ 
 }

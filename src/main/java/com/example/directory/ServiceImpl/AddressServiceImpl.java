@@ -79,11 +79,11 @@ public class AddressServiceImpl implements AddressService{
 
 	//-----------------------------------------------custom method implementation
     @Override
-    public List<Email> findByUserDirectory(int directory){
+    public List<Address> findAddressByUserDirectory(int directory){
     	String hql = "FROM Address as  e WHERE e.directory=:dirId";
-        TypedQuery<Email> query = entityManager.createQuery(hql, Email.class);
+        TypedQuery<Address> query = entityManager.createQuery(hql, Address.class);
         query.setParameter("dirId", directory);
-        List<Email> theEmails =query.getResultList();
-        return theEmails;
+        List<Address> theAddress =query.getResultList();
+        return theAddress;
     }
 }

@@ -9,6 +9,7 @@ import org.hibernate.annotations.UpdateTimestamp;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
@@ -24,6 +25,7 @@ import jakarta.persistence.Table;
 
 @Entity
 @Table(name = "directory")
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class Directory {
 
     @Id
@@ -36,7 +38,7 @@ public class Directory {
 
     @CreationTimestamp
     @Column(name = "created_at")
-    private Timestamp createdAt;
+    private Timestamp createsAt;
 
     @UpdateTimestamp
     @Column(name = "updated_at")
@@ -63,11 +65,20 @@ public class Directory {
 			List<Contact> contacts, List<Address> addresses) {
 		super();
 		this.fullName = fullName;
-		this.createdAt = createsAt;
+		this.createsAt = createsAt;
 		this.updatedAt = updatedAt;
 		this.emails = emails;
 		this.contacts = contacts;
 		this.addresses = addresses;
+	}
+
+
+	public Directory(Directory tempDirectory) {
+		// TODO Auto-generated constructor stub
+		super();
+		this.fullName = tempDirectory.getFullName();
+		this.createsAt = tempDirectory.getCreatesAt();
+		this.updatedAt = tempDirectory.getCreatesAt();
 	}
 
 
@@ -79,10 +90,10 @@ public class Directory {
     }
     public Timestamp getCreatesAt() {
 
-        return createdAt;
+        return createsAt;
     }
     public void setCreatesAt(Timestamp createsAt) {
-        this.createdAt = createsAt;
+        this.createsAt = createsAt;
     }
     public Timestamp getUpdatedAt() {
         return updatedAt;
@@ -124,7 +135,7 @@ public class Directory {
 
     @Override
 	public String toString() {
-		return "Directory [directoryId=" + directoryId + ", fullName=" + fullName + ", createsAt=" + createdAt
+		return "Directory [directoryId=" + directoryId + ", fullName=" + fullName + ", createsAt=" + createsAt
 				+ ", updatedAt=" + updatedAt + ", emails=" + emails + ", contacts=" + contacts + ", addresses="
 				+ addresses + "]";
 	}

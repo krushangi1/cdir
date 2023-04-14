@@ -30,7 +30,7 @@ public class AddressController {
 	}
 
     @Autowired
-    public AddressController(AddressServiceImpl addressServiceImpl){
+    public AddressController(AddressService addressServiceImpl){
         this.addressServiceImpl=addressServiceImpl;
     }
     //----------------------------find all addresses
@@ -74,9 +74,7 @@ public class AddressController {
   //-----------------------------------find by user id
     @GetMapping("all/user/{dirId}")
     @CrossOrigin(origins = "http://localhost:4200")
-    public List<Email> findByUser(@PathVariable("dirId") int directory){
-    	System.out.println("-----------------");
-    	System.out.println(addressServiceImpl.findByUserDirectory(directory));
-    	return addressServiceImpl.findByUserDirectory(directory);
+    public List<Address> findByUser(@PathVariable("dirId") int directory){
+    	return addressServiceImpl.findAddressByUserDirectory(directory);
     }
 }

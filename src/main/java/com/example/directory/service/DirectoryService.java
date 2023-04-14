@@ -10,8 +10,8 @@ public interface DirectoryService {
     public Directory findById(int directoryId);
     public void deleteById(int directoryId);
     public Directory saveDirectory(Directory directoryList);
-//    //public boolean update(Directory tempDirectory);
-
+    public List<Directory> search(String instance);
+    public Directory updateUser(Integer id, Directory userDetails);
     //custom
     //public List<Directory> findByUser(int directoryId);
 }
