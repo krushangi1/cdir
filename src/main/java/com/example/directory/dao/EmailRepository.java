@@ -12,4 +12,5 @@ import com.example.directory.entity.Email;
 @Repository
 public interface EmailRepository extends JpaRepository<Email,Integer> {
 	
+	
 }

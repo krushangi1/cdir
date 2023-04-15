@@ -7,6 +7,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import com.example.directory.entity.Directory;
+import com.example.directory.entity.Email;
 
 @Repository
 public interface DirectoryRepository extends JpaRepository<Directory,Integer> {
@@ -19,4 +20,7 @@ public interface DirectoryRepository extends JpaRepository<Directory,Integer> {
 	
 	@Query(chat)
 	List<Directory> findByContaining(String instance);
+	
+//	@Query('SELECT e FROM Email e where e.directory =?1')
+//	List<Email> findByDirectoryId(int directoryId);
 }

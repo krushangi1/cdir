@@ -4,7 +4,6 @@ import java.util.List;
 
 import org.springframework.data.jpa.repository.Query;
 
-import com.example.directory.dao.CustomRepo;
 import com.example.directory.entity.Address;
 import com.example.directory.entity.Contact;
 import com.example.directory.entity.Directory;

@@ -41,9 +41,13 @@ public   class DirectoryServiceImpl implements DirectoryService {
     
     
     @Autowired
-    public DirectoryServiceImpl(DirectoryRepository directoryRepository, EmailService emailService){
+    public DirectoryServiceImpl(DirectoryRepository directoryRepository, EmailService emailService,
+    		ContactService contactService,AddressService addressService){
         this.directoryRepository=directoryRepository;
         this.emailService=emailService;
+        this.addressService=addressService;
+        this.contactService=contactService;
+        
     }
 
     //----------------------------find all directories
@@ -70,7 +74,7 @@ public   class DirectoryServiceImpl implements DirectoryService {
         
     }
 
-    //----------------------------save or update email by id
+    //----------------------------save directory
     @Override
     public Directory saveDirectory(Directory tempDirectory) {
     	
@@ -126,22 +130,24 @@ public   class DirectoryServiceImpl implements DirectoryService {
   	@Override
       public Directory findById(int directoryId){
   		
-  		List<Email> emails=new ArrayList<Email>();
+  		Optional<Directory> tempDirectory=directoryRepository.findById(directoryId);
+  		Directory theDirectory = null;
+  		
+//  		List<Email> emails=new ArrayList<Email>();
 //  		List<Contact> contacts=new ArrayList<Contact>();
 //  		List<Address> addresses=new ArrayList<Address>();		
 //  		emails=emailService.findEmailByUserDirectory(directoryId);
 //  		contacts=contactService.findContactByUserDirectory(directoryId);
 //  		addresses=addressService.findAddressByUserDirectory(directoryId);
 
-  		Optional<Directory> tempDirectory=directoryRepository.findById(directoryId);
-  		Directory theDirectory = null;
+  		
+  		
   		
   		if( tempDirectory.isPresent() ) {
   			theDirectory=tempDirectory.get();
-  
 //  			theDirectory.setAddresses(addresses);
 //  			theDirectory.setContacts(contacts); 
-//  			theDirectory.setEmails(emails);
+//  			theDirectory.setEmails(emailService);
 
   		}
   		else {

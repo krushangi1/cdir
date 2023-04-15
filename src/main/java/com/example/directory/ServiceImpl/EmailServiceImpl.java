@@ -82,14 +82,14 @@ public  class EmailServiceImpl implements EmailService {
 
     
     //-----------------------------------------------custom method implementation
-    @Override
-    public List<Email> findEmailByUserDirectory(int directory){
-    	String hql = "FROM Email as  e WHERE e.directory=:dirId";
+    public List<Email> findEmailByUserDirectory(int directoryId) {
+    	String hql = "FROM Email as  e WHERE e.directory=:directoryId";
         TypedQuery<Email> query = entityManager.createQuery(hql, Email.class);
-        query.setParameter("dirId", directory);
-        List<Email> theEmails =query.getResultList();
-        return theEmails;
-    }
+        query.setParameter("directoryId", directoryId);
+        List<Email> theEmail =query.getResultList();
+        return theEmail;
+//        return emailRepository.findByDirectoryId(directoryId);
+      }
 
 }
 
